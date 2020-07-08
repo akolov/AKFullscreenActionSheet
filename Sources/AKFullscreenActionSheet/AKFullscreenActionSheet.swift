@@ -156,7 +156,7 @@ open class AKFullscreenActionSheet: UIViewController {
 
   // MARK: View Lifecycle
 
-  public override func viewDidLoad() {
+  open override func viewDidLoad() {
     super.viewDidLoad()
 
     let spacer = UIView()
