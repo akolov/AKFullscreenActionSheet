@@ -47,7 +47,10 @@ open class AKFullscreenActionSheet: UIViewController {
       }(),
       textFont: UIFont = .preferredFont(forTextStyle: .body),
       actionButtonConfiguration: AKButton.Configuration = .init(),
-      cancelButtonConfiguration: AKButton.Configuration = .init(backgroundColor: .clear, foregroundColor: .systemBlue)
+      cancelButtonConfiguration: AKButton.Configuration = .init(
+        backgroundColor: { _ in .clear },
+        foregroundColor: { $0 == .disabled ? .systemGray : .systemBlue }
+      )
     ) {
       self.contentInset = contentInset
       self.contentSpacing = contentSpacing
@@ -131,13 +134,13 @@ open class AKFullscreenActionSheet: UIViewController {
 
   public private(set) lazy var actionButton: AKButton = {
     let actionButton = AKButton(configuration: self.configuration.actionButtonConfiguration)
-    actionButton.title = "PERFORM ACTION"
+    actionButton.title = { _ in "PERFORM ACTION" }
     return actionButton
   }()
 
   public private(set) lazy var cancelButton: AKButton = {
     let cancelButton = AKButton(configuration: self.configuration.cancelButtonConfiguration)
-    cancelButton.title = "CANCEL"
+    cancelButton.title = { _ in "CANCEL" }
     return cancelButton
   }()
 
