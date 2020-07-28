@@ -20,8 +20,8 @@ open class AKFullscreenActionSheet: UIViewController {
     public var headerFont: UIFont
     public var textColor: UIColor
     public var textFont: UIFont
-    public var actionButtonConfiguration: AKButton.Configuration
-    public var cancelButtonConfiguration: AKButton.Configuration
+    public var primaryButtonConfiguration: AKButton.Configuration
+    public var secondaryButtonConfiguration: AKButton.Configuration
 
     public init(
       contentInset: UIEdgeInsets = .init(top: 32, left: 32, bottom: 32, right: 32),
@@ -46,8 +46,8 @@ open class AKFullscreenActionSheet: UIViewController {
         }
       }(),
       textFont: UIFont = .preferredFont(forTextStyle: .body),
-      actionButtonConfiguration: AKButton.Configuration = .init(),
-      cancelButtonConfiguration: AKButton.Configuration = .init(
+      primaryButtonConfiguration: AKButton.Configuration = .init(),
+      secondaryButtonConfiguration: AKButton.Configuration = .init(
         backgroundColor: { _ in .clear },
         foregroundColor: { $0 == .disabled ? .systemGray : .systemBlue }
       )
@@ -60,15 +60,15 @@ open class AKFullscreenActionSheet: UIViewController {
       self.headerFont = headerFont
       self.textColor = textColor
       self.textFont = textFont
-      self.actionButtonConfiguration = actionButtonConfiguration
-      self.cancelButtonConfiguration = cancelButtonConfiguration
+      self.primaryButtonConfiguration = primaryButtonConfiguration
+      self.secondaryButtonConfiguration = secondaryButtonConfiguration
     }
   }
 
   // MARK: Properties
 
-  public var action: ((AKFullscreenActionSheet) -> Void)?
-  public var cancel: ((AKFullscreenActionSheet) -> Void)?
+  public var primaryAction: ((AKFullscreenActionSheet) -> Void)?
+  public var secondaryAction: ((AKFullscreenActionSheet) -> Void)?
 
   public var onAppear: ((AKFullscreenActionSheet) -> Void)?
 
@@ -132,16 +132,16 @@ open class AKFullscreenActionSheet: UIViewController {
     return textLabel
   }()
 
-  public private(set) lazy var actionButton: AKButton = {
-    let actionButton = AKButton(configuration: self.configuration.actionButtonConfiguration)
-    actionButton.title = { _ in "PERFORM ACTION" }
-    return actionButton
+  public private(set) lazy var primaryButton: AKButton = {
+    let primaryButton = AKButton(configuration: self.configuration.primaryButtonConfiguration)
+    primaryButton.title = { _ in "PRIMARY ACTION" }
+    return primaryButton
   }()
 
-  public private(set) lazy var cancelButton: AKButton = {
-    let cancelButton = AKButton(configuration: self.configuration.cancelButtonConfiguration)
-    cancelButton.title = { _ in "CANCEL" }
-    return cancelButton
+  public private(set) lazy var secondaryButton: AKButton = {
+    let secondaryButton = AKButton(configuration: self.configuration.secondaryButtonConfiguration)
+    secondaryButton.title = { _ in "SECONDARY ACTION" }
+    return secondaryButton
   }()
 
   // MARK: Initializers
@@ -177,8 +177,8 @@ open class AKFullscreenActionSheet: UIViewController {
     middleContainerView.addArrangedSubview(headerLabel)
     middleContainerView.addArrangedSubview(textLabel)
 
-    bottomContainerView.addArrangedSubview(actionButton)
-    bottomContainerView.addArrangedSubview(cancelButton)
+    bottomContainerView.addArrangedSubview(primaryButton)
+    bottomContainerView.addArrangedSubview(secondaryButton)
 
     NSLayoutConstraint.activate([
       containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -192,21 +192,21 @@ open class AKFullscreenActionSheet: UIViewController {
     ])
 
     NSLayoutConstraint.activate([
-      actionButton.heightAnchor.constraint(equalToConstant: 48)
+      primaryButton.heightAnchor.constraint(equalToConstant: 48)
     ])
 
     headerLabel.setContentCompressionResistancePriority(.required, for: .vertical)
     textLabel.setContentCompressionResistancePriority(.required, for: .vertical)
 
-    actionButton.action = { [weak self] in
+    primaryButton.action = { [weak self] in
       if let self = self {
-        self.action?(self)
+        self.primaryAction?(self)
       }
     }
 
-    cancelButton.action = { [weak self] in
+    secondaryButton.action = { [weak self] in
       if let self = self {
-        self.cancel?(self)
+        self.secondaryAction?(self)
       }
     }
   }
@@ -227,8 +227,8 @@ open class AKFullscreenActionSheet: UIViewController {
     headerLabel.font = configuration.headerFont
     textLabel.textColor = configuration.textColor
     textLabel.font = configuration.textFont
-    actionButton.configuration = configuration.actionButtonConfiguration
-    cancelButton.configuration = configuration.cancelButtonConfiguration
+    primaryButton.configuration = configuration.primaryButtonConfiguration
+    secondaryButton.configuration = configuration.secondaryButtonConfiguration
   }
 
 }
