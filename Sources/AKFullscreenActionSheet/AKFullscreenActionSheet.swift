@@ -20,6 +20,7 @@ open class AKFullscreenActionSheet: UIViewController {
     public var headerFont: UIFont
     public var textColor: UIColor
     public var textFont: UIFont
+    public var buttonHeight: CGFloat
     public var primaryButtonConfiguration: AKButton.Configuration
     public var secondaryButtonConfiguration: AKButton.Configuration
 
@@ -46,6 +47,7 @@ open class AKFullscreenActionSheet: UIViewController {
         }
       }(),
       textFont: UIFont = .preferredFont(forTextStyle: .body),
+      buttonHeight: CGFloat = 40,
       primaryButtonConfiguration: AKButton.Configuration = .init(),
       secondaryButtonConfiguration: AKButton.Configuration = .init(
         backgroundColor: { _ in .clear },
@@ -60,6 +62,7 @@ open class AKFullscreenActionSheet: UIViewController {
       self.headerFont = headerFont
       self.textColor = textColor
       self.textFont = textFont
+      self.buttonHeight = buttonHeight
       self.primaryButtonConfiguration = primaryButtonConfiguration
       self.secondaryButtonConfiguration = secondaryButtonConfiguration
     }
@@ -77,6 +80,8 @@ open class AKFullscreenActionSheet: UIViewController {
       configure()
     }
   }
+
+  private weak var primaryButtonHeightConstraint: NSLayoutConstraint?
 
   // MARK: Subviews
 
@@ -197,9 +202,8 @@ open class AKFullscreenActionSheet: UIViewController {
       }()
     ])
 
-    NSLayoutConstraint.activate([
-      primaryButton.heightAnchor.constraint(equalToConstant: 48)
-    ])
+    primaryButtonHeightConstraint = primaryButton.heightAnchor.constraint(equalToConstant: configuration.buttonHeight)
+    primaryButtonHeightConstraint?.isActive = true
 
     headerLabel.setContentCompressionResistancePriority(.required, for: .vertical)
     textLabel.setContentCompressionResistancePriority(.required, for: .vertical)
@@ -235,6 +239,7 @@ open class AKFullscreenActionSheet: UIViewController {
     textLabel.font = configuration.textFont
     primaryButton.configuration = configuration.primaryButtonConfiguration
     secondaryButton.configuration = configuration.secondaryButtonConfiguration
+    primaryButtonHeightConstraint?.constant = configuration.buttonHeight
   }
 
 }
