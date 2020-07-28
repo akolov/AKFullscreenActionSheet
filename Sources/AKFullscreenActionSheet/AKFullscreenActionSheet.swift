@@ -154,7 +154,9 @@ open class AKFullscreenActionSheet: UIViewController {
 
   @available(*, unavailable)
   public required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
+    self.configuration = Configuration()
+    super.init(coder: coder)
+    self.configure()
   }
 
   // MARK: View Lifecycle
