@@ -190,7 +190,11 @@ open class AKFullscreenActionSheet: UIViewController {
     ])
 
     NSLayoutConstraint.activate([
-      topContainerView.widthAnchor.constraint(equalTo: topContainerView.heightAnchor, multiplier: 1)
+      {
+        let constraint = topContainerView.widthAnchor.constraint(equalTo: topContainerView.heightAnchor, multiplier: 1)
+        constraint.priority = .defaultHigh
+        return constraint
+      }()
     ])
 
     NSLayoutConstraint.activate([
