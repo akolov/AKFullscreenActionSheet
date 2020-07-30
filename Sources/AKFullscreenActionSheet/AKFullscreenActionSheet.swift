@@ -149,6 +149,13 @@ open class AKFullscreenActionSheet: UIViewController {
     return secondaryButton
   }()
 
+  public let bottomSpacer: UIView = {
+    let bottomSpacer = UIView()
+    bottomSpacer.backgroundColor = .clear
+    bottomSpacer.translatesAutoresizingMaskIntoConstraints = false
+    return bottomSpacer
+  }()
+
   // MARK: Initializers
 
   public init(configuration: Configuration = Configuration()) {
@@ -169,17 +176,12 @@ open class AKFullscreenActionSheet: UIViewController {
   open override func viewDidLoad() {
     super.viewDidLoad()
 
-    let spacer = UIView()
-    spacer.backgroundColor = .clear
-    spacer.translatesAutoresizingMaskIntoConstraints = false
-
     view.addSubview(containerView)
     containerView.addArrangedSubview(topContainerView)
     containerView.addArrangedSubview(middleContainerView)
-    containerView.addArrangedSubview(spacer)
+    containerView.addArrangedSubview(bottomSpacer)
     containerView.addArrangedSubview(bottomContainerView)
-
-    containerView.setCustomSpacing(0, after: spacer)
+    containerView.setCustomSpacing(0, after: bottomSpacer)
 
     middleContainerView.addArrangedSubview(headerLabel)
     middleContainerView.addArrangedSubview(textLabel)
