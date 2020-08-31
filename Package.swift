@@ -15,7 +15,7 @@ let package = Package(
     ),
   ],
   dependencies: [
-    .package(url: "https://github.com/akolov/AKButton.git", .branch("main"))
+    .package(url: "https://github.com/akolov/AKButton.git", from: "1.0.1")
   ],
   targets: [
     .target(

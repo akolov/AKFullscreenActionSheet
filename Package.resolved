@@ -5,9 +5,9 @@
         "package": "AKButton",
         "repositoryURL": "https://github.com/akolov/AKButton.git",
         "state": {
-          "branch": "main",
-          "revision": "00abdbc08217fe59441c5e76906889d66b42e98f",
-          "version": null
+          "branch": null,
+          "revision": "c4a51fa8512c62cb730243d3c82a4eb6ad2b925e",
+          "version": "1.0.1"
         }
       },
       {
