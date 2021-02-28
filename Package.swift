@@ -15,12 +15,13 @@ let package = Package(
     ),
   ],
   dependencies: [
-    .package(url: "https://github.com/akolov/AKButton.git", from: "1.0.1")
+    .package(url: "https://github.com/akolov/AKButton.git", .upToNextMajor(from: "1.0.1")),
+    .package(url: "https://github.com/Rightpoint/BonMot.git", .upToNextMajor(from: "5.6.0"))
   ],
   targets: [
     .target(
       name: "AKFullscreenActionSheet",
-      dependencies: ["AKButton"]
+      dependencies: ["AKButton", "BonMot"]
     ),
   ]
 )

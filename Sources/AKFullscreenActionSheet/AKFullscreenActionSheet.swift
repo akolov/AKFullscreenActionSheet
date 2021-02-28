@@ -7,6 +7,7 @@
 //
 
 import AKButton
+import BonMot
 import UIKit
 
 open class AKFullscreenActionSheet: UIViewController {
@@ -16,10 +17,8 @@ open class AKFullscreenActionSheet: UIViewController {
     public var contentSpacing: CGFloat
     public var middleContentSpacing: CGFloat
     public var bottomContentSpacing: CGFloat
-    public var headerTextColor: UIColor
-    public var headerFont: UIFont
-    public var textColor: UIColor
-    public var textFont: UIFont
+    public var headerStringStyle: StringStyle
+    public var textStringStyle: StringStyle
     public var buttonHeight: CGFloat
     public var primaryButtonConfiguration: AKButton.Configuration
     public var secondaryButtonConfiguration: AKButton.Configuration
@@ -29,24 +28,28 @@ open class AKFullscreenActionSheet: UIViewController {
       contentSpacing: CGFloat = 40,
       middleContentSpacing: CGFloat = 25,
       bottomContentSpacing: CGFloat = 8,
-      headerTextColor: UIColor = {
-        if #available(iOS 13.0, *) {
-          return .label
-        }
-        else {
-          return .black
-        }
-      }(),
-      headerFont: UIFont = .preferredFont(forTextStyle: .title1),
-      textColor: UIColor = {
-        if #available(iOS 13.0, *) {
-          return .secondaryLabel
-        }
-        else {
-          return .gray
-        }
-      }(),
-      textFont: UIFont = .preferredFont(forTextStyle: .body),
+      headerStringStyle: StringStyle = StringStyle(
+        .color({
+          if #available(iOS 13.0, *) {
+            return .label
+          }
+          else {
+            return .black
+          }
+        }()),
+        .font(.preferredFont(forTextStyle: .title1))
+      ),
+      textStringStyle: StringStyle = StringStyle(
+        .color({
+          if #available(iOS 13.0, *) {
+            return .secondaryLabel
+          }
+          else {
+            return .gray
+          }
+        }()),
+        .font(.preferredFont(forTextStyle: .body))
+      ),
       buttonHeight: CGFloat = 40,
       primaryButtonConfiguration: AKButton.Configuration = .init(),
       secondaryButtonConfiguration: AKButton.Configuration = .init(
@@ -58,10 +61,8 @@ open class AKFullscreenActionSheet: UIViewController {
       self.contentSpacing = contentSpacing
       self.middleContentSpacing = middleContentSpacing
       self.bottomContentSpacing = bottomContentSpacing
-      self.headerTextColor = headerTextColor
-      self.headerFont = headerFont
-      self.textColor = textColor
-      self.textFont = textFont
+      self.headerStringStyle = headerStringStyle
+      self.textStringStyle = textStringStyle
       self.buttonHeight = buttonHeight
       self.primaryButtonConfiguration = primaryButtonConfiguration
       self.secondaryButtonConfiguration = secondaryButtonConfiguration
@@ -72,6 +73,9 @@ open class AKFullscreenActionSheet: UIViewController {
 
   public var primaryAction: ((AKFullscreenActionSheet) -> Void)?
   public var secondaryAction: ((AKFullscreenActionSheet) -> Void)?
+
+  public var headerLabelObserver: NSKeyValueObservation?
+  public var textLabelObserver: NSKeyValueObservation?
 
   public var onAppear: ((AKFullscreenActionSheet) -> Void)?
 
@@ -119,7 +123,7 @@ open class AKFullscreenActionSheet: UIViewController {
     let headerLabel = UILabel()
     headerLabel.numberOfLines = 0
     headerLabel.textAlignment = .center
-    headerLabel.text = "Header Placeholder"
+    headerLabel.attributedText = "Header Placeholder".styled(with: configuration.headerStringStyle)
     headerLabel.translatesAutoresizingMaskIntoConstraints = false
     return headerLabel
   }()
@@ -128,11 +132,11 @@ open class AKFullscreenActionSheet: UIViewController {
     let textLabel = UILabel()
     textLabel.numberOfLines = 0
     textLabel.textAlignment = .center
-    textLabel.text =
+    textLabel.attributedText =
     """
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc efficitur odio ut pulvinar pharetra. \
     Donec tempor, ante quis pretium finibus, sapien enim rutrum augue, et commodo turpis mauris ac sem.
-    """
+    """.styled(with: configuration.textStringStyle)
     textLabel.translatesAutoresizingMaskIntoConstraints = false
     return textLabel
   }()
@@ -162,13 +166,25 @@ open class AKFullscreenActionSheet: UIViewController {
     self.configuration = configuration
     super.init(nibName: nil, bundle: nil)
     self.configure()
+
+    headerLabelObserver = headerLabel.observe(\.text) { [unowned self] label, _ in
+      let newText = label.text?.styled(with: self.configuration.headerStringStyle)
+      if label.attributedText != newText {
+        label.attributedText = newText
+      }
+    }
+
+    textLabelObserver = textLabel.observe(\.text) { [unowned self] label, _ in
+      let newText = label.text?.styled(with: self.configuration.textStringStyle)
+      if label.attributedText != newText {
+        label.attributedText = newText
+      }
+    }
   }
 
   @available(*, unavailable)
   public required init?(coder: NSCoder) {
-    self.configuration = Configuration()
-    super.init(coder: coder)
-    self.configure()
+    fatalError("Not implemented")
   }
 
   // MARK: View Lifecycle
@@ -235,10 +251,8 @@ open class AKFullscreenActionSheet: UIViewController {
     containerView.layoutMargins = configuration.contentInset
     middleContainerView.spacing = configuration.middleContentSpacing
     bottomContainerView.spacing = configuration.bottomContentSpacing
-    headerLabel.textColor = configuration.headerTextColor
-    headerLabel.font = configuration.headerFont
-    textLabel.textColor = configuration.textColor
-    textLabel.font = configuration.textFont
+    headerLabel.attributedText = headerLabel.text?.styled(with: configuration.headerStringStyle)
+    textLabel.attributedText = textLabel.text?.styled(with: configuration.textStringStyle)
     primaryButton.configuration = configuration.primaryButtonConfiguration
     secondaryButton.configuration = configuration.secondaryButtonConfiguration
     primaryButtonHeightConstraint?.constant = configuration.buttonHeight

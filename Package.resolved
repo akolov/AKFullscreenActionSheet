@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "BonMot",
+        "repositoryURL": "https://github.com/Rightpoint/BonMot.git",
+        "state": {
+          "branch": null,
+          "revision": "f9f38fd8bb7919f6a9262eae2811e40d4a890251",
+          "version": "5.6.0"
+        }
+      },
+      {
         "package": "RxSwift",
         "repositoryURL": "https://github.com/ReactiveX/RxSwift.git",
         "state": {
