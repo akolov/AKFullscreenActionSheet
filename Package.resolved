@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/akolov/AKButton.git",
         "state": {
           "branch": null,
-          "revision": "c4a51fa8512c62cb730243d3c82a4eb6ad2b925e",
-          "version": "1.0.1"
+          "revision": "56679b741395bb5624e656b9c844966c198aed0a",
+          "version": "2.0.0"
         }
       },
       {
@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/ReactiveX/RxSwift.git",
         "state": {
           "branch": null,
-          "revision": "002d325b0bdee94e7882e1114af5ff4fe1e96afa",
-          "version": "5.1.1"
+          "revision": "7e01c05f25c025143073eaa3be3532f9375c614b",
+          "version": "6.1.0"
         }
       }
     ]

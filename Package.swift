@@ -15,7 +15,7 @@ let package = Package(
     ),
   ],
   dependencies: [
-    .package(url: "https://github.com/akolov/AKButton.git", .upToNextMajor(from: "1.0.1")),
+    .package(url: "https://github.com/akolov/AKButton.git", .upToNextMajor(from: "2.0.0")),
     .package(url: "https://github.com/Rightpoint/BonMot.git", .upToNextMajor(from: "5.6.0"))
   ],
   targets: [
