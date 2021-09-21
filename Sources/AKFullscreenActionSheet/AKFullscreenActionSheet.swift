@@ -17,8 +17,8 @@ open class AKFullscreenActionSheet: UIViewController {
     public var contentSpacing: CGFloat
     public var middleContentSpacing: CGFloat
     public var bottomContentSpacing: CGFloat
-    public var headerStringStyle: StringStyle
-    public var textStringStyle: StringStyle
+    public var headerStringStyle: BonMot.StringStyle
+    public var textStringStyle: BonMot.StringStyle
     public var buttonHeight: CGFloat
     public var primaryButtonConfiguration: AKButton.Configuration
     public var secondaryButtonConfiguration: AKButton.Configuration
@@ -28,7 +28,7 @@ open class AKFullscreenActionSheet: UIViewController {
       contentSpacing: CGFloat = 40,
       middleContentSpacing: CGFloat = 25,
       bottomContentSpacing: CGFloat = 8,
-      headerStringStyle: StringStyle = StringStyle(
+      headerStringStyle: BonMot.StringStyle = BonMot.StringStyle(
         .color({
           if #available(iOS 13.0, *) {
             return .label
@@ -39,7 +39,7 @@ open class AKFullscreenActionSheet: UIViewController {
         }()),
         .font(.preferredFont(forTextStyle: .title1))
       ),
-      textStringStyle: StringStyle = StringStyle(
+      textStringStyle: BonMot.StringStyle = BonMot.StringStyle(
         .color({
           if #available(iOS 13.0, *) {
             return .secondaryLabel

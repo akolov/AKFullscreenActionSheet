@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/akolov/AKButton.git",
         "state": {
           "branch": null,
-          "revision": "56679b741395bb5624e656b9c844966c198aed0a",
-          "version": "2.0.0"
+          "revision": "d4244ea36918934021ef19481edcf14194521575",
+          "version": "2.0.1"
         }
       },
       {
@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/Rightpoint/BonMot.git",
         "state": {
           "branch": null,
-          "revision": "f9f38fd8bb7919f6a9262eae2811e40d4a890251",
-          "version": "5.6.0"
+          "revision": "69dd5eba11694421418edc9063f3c7c02d069634",
+          "version": "6.0.0"
         }
       },
       {
@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/ReactiveX/RxSwift.git",
         "state": {
           "branch": null,
-          "revision": "7e01c05f25c025143073eaa3be3532f9375c614b",
-          "version": "6.1.0"
+          "revision": "7c17a6ccca06b5c107cfa4284e634562ddaf5951",
+          "version": "6.2.0"
         }
       }
     ]

@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
   name: "AKFullscreenActionSheet",
   platforms: [
-    .iOS(.v12)
+    .iOS(.v14)
   ],
   products: [
     .library(
@@ -16,7 +16,7 @@ let package = Package(
   ],
   dependencies: [
     .package(url: "https://github.com/akolov/AKButton.git", .upToNextMajor(from: "2.0.0")),
-    .package(url: "https://github.com/Rightpoint/BonMot.git", .upToNextMajor(from: "5.6.0"))
+    .package(url: "https://github.com/Rightpoint/BonMot.git", .upToNextMajor(from: "6.0.0"))
   ],
   targets: [
     .target(
