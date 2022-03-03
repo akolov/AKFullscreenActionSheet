@@ -226,13 +226,13 @@ open class AKFullscreenActionSheet: UIViewController {
     headerLabel.setContentCompressionResistancePriority(.required, for: .vertical)
     textLabel.setContentCompressionResistancePriority(.required, for: .vertical)
 
-    primaryButton.action = { [weak self] in
+    primaryButton.tapHandler = { [weak self] in
       if let self = self {
         self.primaryAction?(self)
       }
     }
 
-    secondaryButton.action = { [weak self] in
+    secondaryButton.tapHandler = { [weak self] in
       if let self = self {
         self.secondaryAction?(self)
       }
